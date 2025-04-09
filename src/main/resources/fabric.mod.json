@@ -7,6 +7,10 @@
   "authors": [
     "Vertigo GX"
   ],
+  "contact": {
+    "sources": "https://github.com/Vertigo-GX/GameTweaks",
+    "issues": "https://github.com/Vertigo-GX/GameTweaks/issues"
+  },
   "license": "MIT",
   "icon": "assets/game-tweaks/icon.png",
   "environment": "*",

@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "vertigo.gametweaks.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "LightningEntityMixin",
+    "NetherPortalBlockMixin",
+    "PickUpBlockGoalMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "game-tweaks.text.optionsTitle": "Game Tweaks - Options",
+  "game-tweaks.option.disableLightningStartsFires": "Disable lightning starts fires",
+  "game-tweaks.tooltip.disableLightningStartsFires": "Disables lightning starting a fire where it strikes. Mobs that are hit will still catch on fire.\n\nDefault: OFF",
+  "game-tweaks.option.disablePortalsSpawnPiglins": "Disable portals spawn piglins",
+  "game-tweaks.tooltip.disablePortalsSpawnPiglins": "Disables nether-portal blocks occasionally spawning zombified piglins.\n\nDefault: OFF",
+  "game-tweaks.option.disableEndermenPickUpBlocks": "Disable endermen pick up blocks",
+  "game-tweaks.tooltip.disableEndermenPickUpBlocks": "Disables endermen being able to pick up blocks.\n\nDefault: OFF"
+}

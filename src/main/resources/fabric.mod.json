@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "game-tweaks",
+  "version": "${version}",
+  "name": "Game Tweaks",
+  "description": "Allows tweaking of a few features that don't have game rules.",
+  "authors": [
+    "Vertigo GX"
+  ],
+  "license": "MIT",
+  "icon": "assets/game-tweaks/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "vertigo.gametweaks.GameTweaks"
+    ],
+    "modmenu": [
+      "vertigo.gametweaks.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "game-tweaks.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.13",
+    "minecraft": "~1.21.4",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": ">=13.0.0"
+  }
+}

@@ -1,5 +1,5 @@
 # [Game Tweaks](https://modrinth.com/mod/game-tweaks)
-A small server-side/singleplayer Minecraft mod for Fabric that allows tweaking of a few features that don't have game rules.
+A small server-side/singleplayer Minecraft mod for Fabric that allows tweaking a few features that don't have game rules.
 
 (Note: Has only been tested in singleplayer so far!)
 

@@ -1,14 +1,18 @@
 package vertigo.gametweaks;
 
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.tooltip.Tooltip;
-import net.minecraft.client.gui.widget.*;
-import net.minecraft.screen.ScreenTexts;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.StringWidget;
+import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.layouts.GridLayout;
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
 
 public class ConfigScreen extends Screen {
 
 	private static final int BUTTON_WIDTH = 310;
+
 	private static final int BUTTON_HEIGHT = 20;
 
 	private final Screen parent;
@@ -16,48 +20,40 @@ public class ConfigScreen extends Screen {
 	private boolean modified = false;
 
 	protected ConfigScreen(Screen parent) {
-		super(Text.literal("game-tweaks.options"));
+		super(Component.literal("game-tweaks.options"));
 		this.parent = parent;
 	}
 
 	@Override
 	protected void init() {
-		ThreePartsLayoutWidget layout = new ThreePartsLayoutWidget(this);
-		layout.addHeader(new TextWidget(Text.translatable("game-tweaks.text.optionsTitle"), this.textRenderer));
-		GridWidget grid = new GridWidget();
-		grid.setRowSpacing(5);
-		GridWidget.Adder adder = grid.createAdder(1);
-		adder.add(createToggleButton("disableLightningStartsFires", GameTweaks.CONFIG.disableLightningStartsFires, b -> {
-			setToggleButtonMessage(b, "disableLightningStartsFires", GameTweaks.CONFIG.disableLightningStartsFires ^= true);
-		}));
-		adder.add(createToggleButton("disablePortalsSpawnPiglins", GameTweaks.CONFIG.disablePortalsSpawnPiglins, b -> {
-			setToggleButtonMessage(b, "disablePortalsSpawnPiglins", GameTweaks.CONFIG.disablePortalsSpawnPiglins ^= true);
-		}));
-		adder.add(createToggleButton("disableEndermenPickUpBlocks", GameTweaks.CONFIG.disableEndermenPickUpBlocks, b -> {
-			setToggleButtonMessage(b, "disableEndermenPickUpBlocks", GameTweaks.CONFIG.disableEndermenPickUpBlocks ^= true);
-		}));
-		layout.addBody(grid);
-		layout.addFooter(ButtonWidget.builder(ScreenTexts.DONE, b -> {
-			close();
-		}).build());
-		layout.forEachChild(this::addDrawableChild);
-		layout.refreshPositions();
+		HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
+		layout.addToHeader(new StringWidget(Component.translatable("game-tweaks.text.optionsTitle"), this.font));
+		GridLayout grid = new GridLayout();
+		grid.rowSpacing(5);
+		GridLayout.RowHelper adder = grid.createRowHelper(1);
+		adder.addChild(createToggleButton("disableLightningStartsFires", GameTweaks.CONFIG.disableLightningStartsFires, b -> setToggleButtonMessage(b, "disableLightningStartsFires", GameTweaks.CONFIG.disableLightningStartsFires ^= true)));
+		adder.addChild(createToggleButton("disablePortalsSpawnPiglins", GameTweaks.CONFIG.disablePortalsSpawnPiglins, b -> setToggleButtonMessage(b, "disablePortalsSpawnPiglins", GameTweaks.CONFIG.disablePortalsSpawnPiglins ^= true)));
+		adder.addChild(createToggleButton("disableEndermenPickUpBlocks", GameTweaks.CONFIG.disableEndermenPickUpBlocks, b -> setToggleButtonMessage(b, "disableEndermenPickUpBlocks", GameTweaks.CONFIG.disableEndermenPickUpBlocks ^= true)));
+		layout.addToContents(grid);
+		layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, b -> onClose()).build());
+		layout.visitWidgets(this::addRenderableWidget);
+		layout.arrangeElements();
 	}
 
 	@Override
-	public void close() {
-		if (modified) {
+	public void onClose() {
+		if(modified) {
 			GameTweaks.CONFIG.write();
 		}
-		this.client.setScreen(this.parent);
+		this.minecraft.setScreen(this.parent);
 	}
 
-	private ButtonWidget createToggleButton(String key, boolean value, ButtonWidget.PressAction action) {
-		return ButtonWidget.builder(ScreenTexts.composeToggleText(Text.translatable("game-tweaks.option." + key), value), action).tooltip(Tooltip.of(Text.translatable("game-tweaks.tooltip." + key))).size(BUTTON_WIDTH, BUTTON_HEIGHT).build();
+	private Button createToggleButton(String key, boolean value, Button.OnPress action) {
+		return Button.builder(CommonComponents.optionStatus(Component.translatable("game-tweaks.option." + key), value), action).tooltip(Tooltip.create(Component.translatable("game-tweaks.tooltip." + key))).size(BUTTON_WIDTH, BUTTON_HEIGHT).build();
 	}
 
-	private void setToggleButtonMessage(ButtonWidget button, String key, boolean value) {
-		button.setMessage(ScreenTexts.composeToggleText(Text.translatable("game-tweaks.option." + key), value));
+	private void setToggleButtonMessage(Button button, String key, boolean value) {
+		button.setMessage(CommonComponents.optionStatus(Component.translatable("game-tweaks.option." + key), value));
 		modified = true;
 	}
 

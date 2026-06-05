@@ -3,7 +3,7 @@
   "id": "game-tweaks",
   "version": "${version}",
   "name": "Game Tweaks",
-  "description": "Allows tweaking of a few features that don't have game rules.",
+  "description": "Tweak features that don't have game rules but probably should.",
   "authors": [
     "Vertigo GX"
   ],

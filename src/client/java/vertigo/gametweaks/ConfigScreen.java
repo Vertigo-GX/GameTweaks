@@ -35,7 +35,7 @@ public class ConfigScreen extends Screen {
 		adder.addChild(createToggleButton("disablePortalsSpawnPiglins", GameTweaks.CONFIG.disablePortalsSpawnPiglins, b -> setToggleButtonMessage(b, "disablePortalsSpawnPiglins", GameTweaks.CONFIG.disablePortalsSpawnPiglins ^= true)));
 		adder.addChild(createToggleButton("disableEndermenPickUpBlocks", GameTweaks.CONFIG.disableEndermenPickUpBlocks, b -> setToggleButtonMessage(b, "disableEndermenPickUpBlocks", GameTweaks.CONFIG.disableEndermenPickUpBlocks ^= true)));
 		layout.addToContents(grid);
-		layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, b -> onClose()).build());
+		layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, _ -> onClose()).build());
 		layout.visitWidgets(this::addRenderableWidget);
 		layout.arrangeElements();
 	}
@@ -45,7 +45,7 @@ public class ConfigScreen extends Screen {
 		if(modified) {
 			GameTweaks.CONFIG.write();
 		}
-		this.minecraft.setScreen(this.parent);
+		this.minecraft.gui.setScreen(this.parent);
 	}
 
 	private Button createToggleButton(String key, boolean value, Button.OnPress action) {
